@@ -2,21 +2,54 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.util.Properties;
+import java.io.IOException;
+
 
 public class MassiveMotion extends JPanel implements ActionListener {
 
     protected Timer tm;
+    private Properties prop;
 
     // TODO: Consider removing the next two lines (coordinates for two balls)
     protected int x1, y1;
     protected int x2, y2;
 
 
-    // public MassiveMotion(String propfile) {
-    public MassiveMotion() {
+     public MassiveMotion(String propfile) {
         // TODO: insert your code to read from configuration file here.
+        prop = new Properties();
+        try{
+            FileInputStream file = new FileInputStream(propfile);
+            prop.load(file);
+            //assign key to instance variables for CB:
 
-        tm = new Timer(75, this); // TODO: Replace the first argument with delay with value from config file.
+            //establishing data(Canvas and Timer):
+            int timerDelay = Integer.parseInt(prop.getProperty("timer_delay"));
+            int windowX = Integer.parseInt(prop.getProperty("window_size_x"));
+            int widnowY = Integer.parseInt(prop.getProperty("window_size_y"));
+            String listType = prop.getProperty("list");
+
+            //Star Data:
+            int starSize = Integer.parseInt(prop.getProperty("star_size"));
+            int starPosX = Integer.parseInt(prop.getProperty("star_position_x"));
+            int starPosY = Integer.parseInt(prop.getProperty("star_position_y"));   
+            double starVelocityX = Double.parseDouble(prop.getProperty("star_velocity_x"));
+            double starVelocityY = Double.parseDouble(prop.getProperty("star_velocity_y"));
+
+            //Commet Data:
+            int bodySize = Integer.parseInt(prop.getProperty("body_size"));
+            double bodyVelocity = Double.parseDouble(prop.getProperty("body_veloctiy"));
+            double genX =  Double.parseDouble(prop.getProperty("get_x"));
+            double genY =  Double.parseDouble(prop.getProperty("get_y"));
+                        
+            file.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        tm = new Timer(timer_delay, this); // TODO: Replace the first argument with delay with value from config file.
 
         // TODO: Consider removing the next two lines (coordinates) for random starting locations.
         x1 = 100; y1 = 50;
