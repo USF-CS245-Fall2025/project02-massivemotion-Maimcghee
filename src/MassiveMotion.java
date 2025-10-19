@@ -95,44 +95,38 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
         //get probability of making a new CB:
         Random rand = new Random();
-        double genXProb = rand.nextDouble(0-genX) + genX;
-        double genYProb = rand.nextDouble(0-genY) + genY;
+        double genXProb = rand.nextDouble();
+        double genYProb = rand.nextDouble();
         if(genXProb < genX){
             //populate new CB on the X axis in randome location
-            int locX = rand.nextInt(0 - windowX) + windowX;
-            int locY = rand.nextInt(0 - windowX) + windowX;
-            int velocityX = rand.nextInt(-bodyVelocity - bodyVelocity) + bodyVelocity;
-            int velocityY = rand.nextInt(-bodyVelocity - bodyVelocity) + bodyVelocity;
+            int locX = rand.nextInt(windowX);
+            int locY = rand.nextInt(windowY);
+            int velocityX = rand.nextInt(bodyVelocity *2 + 1) - bodyVelocity;
+            int velocityY = rand.nextInt(bodyVelocity * 2 + 1) - bodyVelocity;
             Celestial c = new Celestial(locX, locY, bodySize, velocityX, velocityY);
             //adding new CB to the list
             list.add(c);
         }
         if(genYProb < genY){
             //populate new CS on the Y axis in randome location
-             //populate new CB on the X axis in randome location
-            int locX = rand.nextInt(0 - windowY) + windowY;
-            int locY = rand.nextInt(0 - windowY) + windowY;
-            int velocityX = rand.nextInt(-bodyVelocity - bodyVelocity) + bodyVelocity;
-            int velocityY = rand.nextInt(-bodyVelocity - bodyVelocity) + bodyVelocity;
+            //populate new CB on the X axis in randome location
+            int locX = rand.nextInt(windowX) ;
+            int locY = rand.nextInt(windowY);
+            int velocityX = rand.nextInt(bodyVelocity * 2 + 1) - bodyVelocity;
+            int velocityY = rand.nextInt(bodyVelocity * 2 + 1) - bodyVelocity;
             Celestial c = new Celestial(locX, locY, bodySize, velocityX, velocityY);
             //adding new CB to the list
             list.add(c);
         }
 
-        if(list.size() != 0){
-            Celestial curr = list.get(0);
-            while(curr.next != null){
-                //travers through list pf CB's
-
-            }
-
+        //traversing through list and Moving Celestial bodies
+        for(int i = 0; i < list.size(); i++){
+            Celestial curr = list.get(i);
+            //moving celestial body
+            curr.move();
         }
+
         
-        // These two "if" statements keep the balls on the screen in case they go off one side.
-        if (x1 > 640)
-            x1 = 0;
-        if (x2 < 0)
-            x2 = 640;
 
         // Keep this at the end of the function (no matter what you do above):
         repaint();
