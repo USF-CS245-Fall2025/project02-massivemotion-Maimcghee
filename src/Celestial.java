@@ -15,6 +15,8 @@ public class Celestial{
     //if we are reading star data we only want to make a star-> method will be called when we determine type of CB
     public Celestial(int startingPosX,int startingPosY, int size, int velX, int velY){
         //initializing innitial positions
+        this.startPosX = startingPosX;
+        this.startPosY = startingPosX;
         this.currX = startingPosX;
         this.currY = startingPosY;
         this.bodySize = size;
@@ -22,10 +24,10 @@ public class Celestial{
         this.velY = velY;
     }
 
-    //move method to update location of B
+    //move method to update location of CB
     public void move(){
-        this.currX = currX + velX;
-        this.currY = currY + velY;
+        this.currX = currX * velX;
+        this.currY = currY * velY;
     }
 
     public static <T> List<T> makeList(String listType){
