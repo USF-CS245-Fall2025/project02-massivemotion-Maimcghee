@@ -1,52 +1,50 @@
 public class Celestial{
-    //atributes for star
-    int starPosX;
-    int starPosY;
-    int starSize;
-    int starVelX;
-    int starVelY;
-
-    //atributes for commet
-    int genX;
-    int genY;
+    
+    int startPosX; // starting position for CB X axis
+    int startPosY; // starting position for CB Y axis 
+    int velX;
+    int velY;
+    int genX;//probability of generating on x axis
+    int genY; // probability of generating on Y axis
     int bodySize;
-    int bodyVel;
-
+    
     //current x and y location of this celestial body
     int currX;
     int currY;
 
     //if we are reading star data we only want to make a star-> method will be called when we determine type of CB
-    public void makeStar(int posX, int posY, int size, int velX, int velY){
-        this.starPosX = posX;
-        this.starPosY = posY;
-        this.starSize = size;
-        this.starVelX = velX;
-        this.starVelY = velY;
-
-    }
-//if we are reading comme data we only want to make a commet->method will be called when we determine type of CB
-    public void makeCommet(int commetX, int commetY, int size, int vel ){
-        this.genX = commetX;
-        this.genY = commetY;
+    public Celestial(int startingPosX,int startingPosY, int size, int velX, int velY){
+        //initializing innitial positions
+        this.currX = startingPosX;
+        this.currY = startingPosY;
         this.bodySize = size;
-        this.bodyVel = vel;
-
+        this.velX = velX;
+        this.velY = velY;
     }
 
-
-    //Private methods to help with the move method -> changes the current X and Y posiiton
-    private void changeX(int newXPosition){
-        this.currX = newXPosition;
-    }
-    private void changeY(int newYPosition){
-        this.currY = newYPosition;
+    //move method to update location of B
+    public void move(){
+        this.currX = currX + velX;
+        this.currY = currY + velY;
     }
 
-    public void move(int velocity){
-        //1) calculate new position based off of velocity
+    public static <T> List<T> makeList(String listType){
 
-        //2) Update current X and Y locations accordingly
+        if(listType.equals("arraylist")){
+            ArrayList list = new ArrayList<>();
+            return list;
+        }else if (listType.equals("doublylinkedlist")){
+            DoublyLinkedList list = new DoublyLinkedList<>();
+            return list;
+        }else if (listType.equals("singlelinkedlist")){
+            SingleLinkedList list = new SingleLinkedList<>();
+            return list;
+        }else if(listType.equals("dummyheadlinkedlist")){
+            DummyHeadLinkedList list = new DummyHeadLinkedList<>();
+            return list;
+        }else{
+            throw new IllegalArgumentException("Unknown list");
+        }
 
     }
 
