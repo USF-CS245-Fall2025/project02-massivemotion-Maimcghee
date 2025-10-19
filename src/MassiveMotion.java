@@ -28,7 +28,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public static double genX;
     public static double genY;
 
-    List<Celestial> list;
+    List<Celestial> list = new ArrayList<>();
 
 
      public MassiveMotion(String propfile) {
@@ -40,28 +40,31 @@ public class MassiveMotion extends JPanel implements ActionListener {
             //assign key to instance variables for CB:
 
             //establishing data(Canvas and Timer):
-            timerDelay = Integer.parseInt(prop.getProperty("timer_delay"));
-            windowX = Integer.parseInt(prop.getProperty("window_size_x"));
-            windowY = Integer.parseInt(prop.getProperty("window_size_y"));
+            timerDelay = Integer.parseInt(prop.getProperty("timer_delay").trim());
+            windowX = Integer.parseInt(prop.getProperty("window_size_x").trim());
+            windowY = Integer.parseInt(prop.getProperty("window_size_y").trim());
             listType = prop.getProperty("list");
 
             //Star Data:
-            starSize = Integer.parseInt(prop.getProperty("star_size"));
-            starPosX = Integer.parseInt(prop.getProperty("star_position_x"));
-            starPosY = Integer.parseInt(prop.getProperty("star_position_y"));   
-            starVelocityX = Integer.parseInt(prop.getProperty("star_velocity_x"));
-            starVelocityY = Integer.parseInt(prop.getProperty("star_velocity_y"));
+            starSize = Integer.parseInt(prop.getProperty("star_size").trim());
+            starPosX = Integer.parseInt(prop.getProperty("star_position_x").trim());
+            starPosY = Integer.parseInt(prop.getProperty("star_position_y").trim());   
+            starVelocityX = Integer.parseInt(prop.getProperty("star_velocity_x").trim());
+            starVelocityY = Integer.parseInt(prop.getProperty("star_velocity_y").trim());
 
             //Commet Data:
-            bodySize = Integer.parseInt(prop.getProperty("body_size"));
-            bodyVelocity = Integer.parseInt(prop.getProperty("body_velocity"));
-            genX = Double.parseDouble(prop.getProperty("gen_x"));
-            genY = Double.parseDouble(prop.getProperty("gen_y"));
+            bodySize = Integer.parseInt(prop.getProperty("body_size").trim());
+            bodyVelocity = Integer.parseInt(prop.getProperty("body_velocity").trim());
+            genX = Double.parseDouble(prop.getProperty("gen_x").trim());
+            genY = Double.parseDouble(prop.getProperty("gen_y").trim());
 
             //setting timer based on timer_delay
             tm = new Timer(timerDelay, this); // TODO: Replace the first argument with delay with value from config file.
             //list to be used to keep track og CB's
             list = Celestial.makeList(listType);
+            if(list == null){
+                throw new IllegalStateException("Celestial list was not initialized. Cannot continue.");
+            }
             Celestial star = new Celestial(starPosX,starPosY, starSize, starVelocityX, starVelocityY);
             list.add(star);
             //debugging
@@ -83,6 +86,9 @@ public class MassiveMotion extends JPanel implements ActionListener {
         super.paintComponent(g); // Probably best you leave this as is.
 
         // TODO: Paint each ball. Here's how to paint two balls, one after the other:
+        if(list == null){
+            return;
+        }
        
         for(int i = 0; i < list.size(); i++){
             Celestial curr = list.get(i);
@@ -130,11 +136,15 @@ public class MassiveMotion extends JPanel implements ActionListener {
         }
 
         //traversing through list and Moving Celestial bodies
-        for(int i = 0; i < list.size(); i++){
+        if(list != null){
+            for(int i = 0; i < list.size(); i++){
             Celestial curr = list.get(i);
             //moving celestial body
             curr.move();
         }
+
+        }
+        
         // Keep this at the end of the function (no matter what you do above):
         repaint();
     }
@@ -142,12 +152,12 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public static void main(String[] args) {
         System.out.println("Massive Motion starting...");
         //MassiveMotion mm = new MassiveMotion(args[0]);
-        MassiveMotion mm = new MassiveMotion("MassiveMotion.txt");
+        MassiveMotion mm = new MassiveMotion("src/MassiveMotion.txt");
        
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mm.setPreferredSize(new Dimension(windowX, windowY)); // TODO: Replace with the size from configuration!
+        mm.setSize(windowX, windowY); // TODO: Replace with the size from configuration!
         mm.setBackground(Color.WHITE);
         jf.add(mm);
         jf.pack();
