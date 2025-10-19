@@ -16,7 +16,7 @@ public class Celestial{
     public Celestial(int startingPosX,int startingPosY, int size, int velX, int velY){
         //initializing innitial positions
         this.startPosX = startingPosX;
-        this.startPosY = startingPosX;
+        this.startPosY = startingPosY;
         this.currX = startingPosX;
         this.currY = startingPosY;
         this.bodySize = size;
@@ -26,8 +26,8 @@ public class Celestial{
 
     //move method to update location of CB
     public void move(){
-        this.currX = currX * velX;
-        this.currY = currY * velY;
+        this.currX += + velX;
+        this.currY += velY;
     }
 
     public static <T> List<T> makeList(String listType){

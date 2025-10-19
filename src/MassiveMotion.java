@@ -20,8 +20,8 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public static int starSize;
     public static int starPosX;
     public static int starPosY;
-    public static double starVelocityX;
-    public static double starVelocityY;
+    public static int starVelocityX;
+    public static int starVelocityY;
 
     public static int bodySize;
     public static int bodyVelocity;
@@ -49,19 +49,24 @@ public class MassiveMotion extends JPanel implements ActionListener {
             starSize = Integer.parseInt(prop.getProperty("star_size"));
             starPosX = Integer.parseInt(prop.getProperty("star_position_x"));
             starPosY = Integer.parseInt(prop.getProperty("star_position_y"));   
-            starVelocityX = Double.parseDouble(prop.getProperty("star_velocity_x"));
-            starVelocityY = Double.parseDouble(prop.getProperty("star_velocity_y"));
+            starVelocityX = Integer.parseInt(prop.getProperty("star_velocity_x"));
+            starVelocityY = Integer.parseInt(prop.getProperty("star_velocity_y"));
 
             //Commet Data:
             bodySize = Integer.parseInt(prop.getProperty("body_size"));
-            bodyVelocity = Integer.parseInt(prop.getProperty("body_veloctiy"));
-            genX = Double.parseDouble(prop.getProperty("get_x"));
-            genY = Double.parseDouble(prop.getProperty("get_y"));
+            bodyVelocity = Integer.parseInt(prop.getProperty("body_velocity"));
+            genX = Double.parseDouble(prop.getProperty("gen_x"));
+            genY = Double.parseDouble(prop.getProperty("gen_y"));
 
             //setting timer based on timer_delay
             tm = new Timer(timerDelay, this); // TODO: Replace the first argument with delay with value from config file.
             //list to be used to keep track og CB's
             list = Celestial.makeList(listType);
+            Celestial star = new Celestial(starPosX,starPosY, starSize, starVelocityX, starVelocityY);
+            list.add(star);
+            //debugging
+            System.out.println("Star created at (" + starPosX + "," + starPosY + ") size=" + starSize + " vel=(" + starVelocityX + "," + starVelocityY + ")");
+            repaint();
                         
             file.close();
         }catch(IOException e){
@@ -73,18 +78,23 @@ public class MassiveMotion extends JPanel implements ActionListener {
         
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // Probably best you leave this as is.
 
         // TODO: Paint each ball. Here's how to paint two balls, one after the other:
-        g.setColor(Color.BLUE);
-        g.fillOval(x1, y1, 20, 20);
-
-        g.setColor(Color.RED);
-        g.fillOval(x2, y2, 20, 20);
-
+       
+        for(int i = 0; i < list.size(); i++){
+            Celestial curr = list.get(i);
+            if(i == 0){
+                g.setColor(Color.RED);
+            }else{
+                g.setColor(Color.BLUE);   
+            }
+            g.fillOval(curr.currX, curr.currY,curr.bodySize, curr.bodySize);
+        }
         // Recommend you leave the next line as is
-        tm.start();
+        //tm.start();
     }
 
 
@@ -125,23 +135,23 @@ public class MassiveMotion extends JPanel implements ActionListener {
             //moving celestial body
             curr.move();
         }
-
-        
-
         // Keep this at the end of the function (no matter what you do above):
         repaint();
     }
 
     public static void main(String[] args) {
         System.out.println("Massive Motion starting...");
-         MassiveMotion mm = new MassiveMotion(args[0]);
-        //MassiveMotion mm = new MassiveMotion();
-
+        //MassiveMotion mm = new MassiveMotion(args[0]);
+        MassiveMotion mm = new MassiveMotion("MassiveMotion.txt");
+       
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");
-        jf.setSize(windowX, windowY); // TODO: Replace with the size from configuration!
-        jf.add(mm);
-        jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mm.setPreferredSize(new Dimension(windowX, windowY)); // TODO: Replace with the size from configuration!
+        mm.setBackground(Color.WHITE);
+        jf.add(mm);
+        jf.pack();
+        jf.setVisible(true);
+        mm.tm.start();
     }
 }
