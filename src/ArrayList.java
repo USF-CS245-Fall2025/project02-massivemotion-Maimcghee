@@ -58,7 +58,7 @@ public class ArrayList<T> implements List<T> {
         T removed = data[index];
 
         //shift elements to fill the gap
-        for(int i = index; i < size; i++){
+        for(int i = index; i < size-1; i++){
             data[i] = data[i + 1];
         }
         size--;
