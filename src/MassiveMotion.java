@@ -73,8 +73,6 @@ public class MassiveMotion extends JPanel implements ActionListener {
             }
             Celestial star = new Celestial(starPosX,starPosY, starSize, starVelocityX, starVelocityY);
             list.add(star);
-            //debugging
-            //repaint();
                         
             file.close();
         }catch(IOException e){
@@ -150,7 +148,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
         //traversing through list and Moving Celestial bodies
         if(list != null){
-            for(int i = 0; i < list.size(); i++){
+            for(int i = list.size() -1; i >= 0; i--){
             Celestial curr = list.get(i);
             //moving celestial body
             curr.move();
@@ -174,10 +172,9 @@ public class MassiveMotion extends JPanel implements ActionListener {
         jf.setTitle("Massive Motion");
         jf.setSize(mm.windowX, mm.windowY); // TODO: Replace with the size from configuration!
         System.out.println(mm.windowX + " " + mm.windowY);
-        //mm.setBackground(Color.WHITE);
         jf.add(mm);
-        //jf.pack();
         jf.setVisible(true);
+
         if(mm.tm == null){
             System.out.println("FILE READING FAILED");
         }else{
