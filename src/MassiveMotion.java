@@ -40,7 +40,12 @@ public class MassiveMotion extends JPanel implements ActionListener {
             //assign key to instance variables for CB:
 
             //establishing data(Canvas and Timer):
-            timerDelay = Integer.parseInt(prop.getProperty("timer_delay").trim());
+            String tdStr = prop.getProperty("timer_delay");
+            if(tdStr != null){
+                timerDelay = Integer.parseInt(prop.getProperty("timer_delay").trim()); 
+            }else{
+                throw new IllegalStateException("timer_delay is missing in the property file!");
+            }
             windowX = Integer.parseInt(prop.getProperty("window_size_x").trim());
             windowY = Integer.parseInt(prop.getProperty("window_size_y").trim());
             listType = prop.getProperty("list");
@@ -59,6 +64,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
             genY = Double.parseDouble(prop.getProperty("gen_y").trim());
 
             //setting timer based on timer_delay
+            
             tm = new Timer(timerDelay, this); // TODO: Replace the first argument with delay with value from config file.
             //list to be used to keep track og CB's
             list = Celestial.makeList(listType);
@@ -68,8 +74,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
             Celestial star = new Celestial(starPosX,starPosY, starSize, starVelocityX, starVelocityY);
             list.add(star);
             //debugging
-            System.out.println("Star created at (" + starPosX + "," + starPosY + ") size=" + starSize + " vel=(" + starVelocityX + "," + starVelocityY + ")");
-            repaint();
+            //repaint();
                         
             file.close();
         }catch(IOException e){
@@ -100,7 +105,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
             g.fillOval(curr.currX, curr.currY,curr.bodySize, curr.bodySize);
         }
         // Recommend you leave the next line as is
-        //tm.start();
+        tm.start();
     }
 
 
@@ -115,7 +120,12 @@ public class MassiveMotion extends JPanel implements ActionListener {
         double genYProb = rand.nextDouble();
         if(genXProb < genX){
             //populate new CB on the X axis in randome location
-            int locX = rand.nextInt(windowX);
+            int axisX = rand.nextInt();
+            int locX = 0;
+            if(axisX % 2 == 0){
+                locX = windowX;
+            }
+
             int locY = rand.nextInt(windowY);
             int velocityX = rand.nextInt(bodyVelocity *2 + 1) - bodyVelocity;
             int velocityY = rand.nextInt(bodyVelocity * 2 + 1) - bodyVelocity;
@@ -125,9 +135,12 @@ public class MassiveMotion extends JPanel implements ActionListener {
         }
         if(genYProb < genY){
             //populate new CS on the Y axis in randome location
-            //populate new CB on the X axis in randome location
             int locX = rand.nextInt(windowX) ;
-            int locY = rand.nextInt(windowY);
+            int locY = 0;
+            int axisY = rand.nextInt();
+            if(axisY % 2 == 0){
+                locY = windowY;
+            }
             int velocityX = rand.nextInt(bodyVelocity * 2 + 1) - bodyVelocity;
             int velocityY = rand.nextInt(bodyVelocity * 2 + 1) - bodyVelocity;
             Celestial c = new Celestial(locX, locY, bodySize, velocityX, velocityY);
@@ -141,10 +154,13 @@ public class MassiveMotion extends JPanel implements ActionListener {
             Celestial curr = list.get(i);
             //moving celestial body
             curr.move();
+            //if CB has moved outside of the canvas
+            if(curr.currX > windowX || curr.currX < 0 || curr.currY > windowY || curr.currY < 0){
+                list.remove(i);
+            }
+            
+            }
         }
-
-        }
-        
         // Keep this at the end of the function (no matter what you do above):
         repaint();
     }
@@ -162,6 +178,11 @@ public class MassiveMotion extends JPanel implements ActionListener {
         jf.add(mm);
         jf.pack();
         jf.setVisible(true);
-        mm.tm.start();
+        if(mm.tm == null){
+            System.out.println("FILE READING FAILED");
+        }else{
+            mm.tm.start();
+        }
+       
     }
 }
