@@ -167,22 +167,23 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         System.out.println("Massive Motion starting...");
-        //MassiveMotion mm = new MassiveMotion(args[0]);
-        MassiveMotion mm = new MassiveMotion("src/MassiveMotion.txt");
+        MassiveMotion mm = new MassiveMotion(args[0]);
+        //MassiveMotion mm = new MassiveMotion("MassiveMotion.txt");
        
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mm.setSize(windowX, windowY); // TODO: Replace with the size from configuration!
-        mm.setBackground(Color.WHITE);
+        jf.setSize(mm.windowX, mm.windowY); // TODO: Replace with the size from configuration!
+        System.out.println(mm.windowX + " " + mm.windowY);
+        //mm.setBackground(Color.WHITE);
         jf.add(mm);
-        jf.pack();
+        //jf.pack();
         jf.setVisible(true);
         if(mm.tm == null){
             System.out.println("FILE READING FAILED");
         }else{
             mm.tm.start();
         }
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        
     }
 }
