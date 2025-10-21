@@ -45,7 +45,7 @@ Custom `Node` class used to build both singly and doubly linked list implementat
 
 ### **4. Celestial.java**
 Defines a **Celestial Body** class that holds attributes such as:
-- Position, velocity, size, and mass  
+- Position, velocity, size
 - Movement logic (`move()` method)
 
 Celestial Body objects are stored in a chosen **List** implementation and represented as circles on the `JFrame` canvas.
