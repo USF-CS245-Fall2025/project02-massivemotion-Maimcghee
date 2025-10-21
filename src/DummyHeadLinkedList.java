@@ -2,6 +2,8 @@ public class DummyHeadLinkedList<T> implements List<T>{
     Node<T> dummy = new Node(null);
     int size;
 
+
+    
     public DummyHeadLinkedList(){
         dummy.next = null;
         size = 0;
