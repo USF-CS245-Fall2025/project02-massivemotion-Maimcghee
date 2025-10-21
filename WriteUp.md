@@ -107,6 +107,10 @@ The **Massive Motion** project demonstrates:
 - A visual simulation of celestial motion using custom data structures
 
 ---
+## 🎬 Demo
+
+[![Watch the animation](https://img.youtube.com/vi/fPZXLzoQLBA/0.jpg)](https://youtu.be/fPZXLzoQLBA)
+---
 
 ## 👩‍💻 Author
 **Maili McGhee**  
