@@ -1,12 +1,12 @@
 # Project #2: Massive Motion
 
-## 📘 Project Description
+## Project Description
 **Massive Motion** is a Java program that simulates the motion of celestial bodies (like stars and comets) across a screen using different custom list data structure implementations.  
 The simulation reads data from a property file that defines object attributes and window properties, creates celestial objects accordingly, and animates them on a graphical interface.
 
 ---
 
-## 📂 Files and Classes
+## Files and Classes
 
 ### **1. MassiveMotion.txt**
 A property file containing attributes for celestial body objects and canvas properties, including:
@@ -52,7 +52,7 @@ Celestial Body objects are stored in a chosen **List** implementation and repres
 
 ---
 
-## 🧩 List Implementations and Complexities
+## List Implementations and Complexities
 
 ### **ArrayList**
 | Method | Best Case | Worst Case |
@@ -99,7 +99,7 @@ Celestial Body objects are stored in a chosen **List** implementation and repres
 
 ---
 
-## 🪐 Summary
+## Summary
 The **Massive Motion** project demonstrates:
 - Implementation of multiple **List** data structures in Java
 - Practical comparison of their **runtime complexities**
@@ -107,11 +107,11 @@ The **Massive Motion** project demonstrates:
 - A visual simulation of celestial motion using custom data structures
 
 ---
-## 🎬 Demo
+## Demo
 
 [![Watch the animation](https://img.youtube.com/vi/fPZXLzoQLBA/0.jpg)](https://youtu.be/fPZXLzoQLBA)
 ---
 
-## 👩‍💻 Author
+## Author
 **Maili McGhee**  
 Project #2 — *Massive Motion*
