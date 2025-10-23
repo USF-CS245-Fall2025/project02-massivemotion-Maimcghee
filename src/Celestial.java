@@ -35,13 +35,13 @@ public class Celestial{
         if(listType.equals("arraylist")){
             ArrayList list = new ArrayList<>();
             return list;
-        }else if (listType.equals("doublylinkedlist")){
+        }else if (listType.equals("double")){
             DoublyLinkedList list = new DoublyLinkedList<>();
             return list;
-        }else if (listType.equals("singlelinkedlist")){
+        }else if (listType.equals("single")){
             SingleLinkedList list = new SingleLinkedList<>();
             return list;
-        }else if(listType.equals("dummyheadlinkedlist")){
+        }else if(listType.equals("dummyhead")){
             DummyHeadLinkedList list = new DummyHeadLinkedList<>();
             return list;
         }else{
