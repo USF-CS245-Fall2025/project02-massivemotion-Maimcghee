@@ -36,8 +36,6 @@ public class ArrayList<T> implements List<T> {
         size++;
         return true;
     }
-
-
     
     @Override
     public T get(int index){
