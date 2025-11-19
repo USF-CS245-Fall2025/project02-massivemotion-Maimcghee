@@ -2,8 +2,6 @@ public class DummyHeadLinkedList<T> implements List<T>{
     Node<T> dummy = new Node(null);
     int size;
 
-
-    
     public DummyHeadLinkedList(){
         dummy.next = null;
         size = 0;
@@ -36,6 +34,7 @@ public class DummyHeadLinkedList<T> implements List<T>{
         //increment size
         size++; 
     }
+
     @Override
     public boolean add (T element){
         Node n = new Node(element);
@@ -54,6 +53,7 @@ public class DummyHeadLinkedList<T> implements List<T>{
         size++;
         return true;
     }
+    
     @Override
     public T get (int index){
         if(index < 0 || index >= size){
@@ -90,10 +90,10 @@ public class DummyHeadLinkedList<T> implements List<T>{
         }
         return removed.data;
     }
+
+    @Override
     public int size (){
         return size;
     }
-
-
     
 }
