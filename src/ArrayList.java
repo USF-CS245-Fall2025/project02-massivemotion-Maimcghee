@@ -84,14 +84,10 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T remove (int index){
-        //checking bounds
         if(index < 0|| index >= size){
             throw new IndexOutOfBoundsException();
         }
-
         T removed = data[index];
-
-        //shift elements to fill the gap
         for(int i = index; i < size-1; i++){
             data[i] = data[i + 1];
         }
@@ -118,7 +114,6 @@ public class ArrayList<T> implements List<T> {
         if(size >= length){
             length = length * 2;
             T[] newSize = (T[]) new Object[length];
-            //putting all data from old arr into new bigger arr
             for(int i = 0; i < size; i++){
                 newSize[i] = data[i];
             }
