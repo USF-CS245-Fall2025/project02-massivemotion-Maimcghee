@@ -12,7 +12,15 @@ public class Celestial{
     int currX;
     int currY;
 
-    //if we are reading star data we only want to make a star-> method will be called when we determine type of CB
+    /**
+     * Constructs a Celestial body with the specified starting position, size, and velocity.
+     *
+     * @param startingPosX the starting X coordinate of the celestial body
+     * @param startingPosY the starting Y coordinate of the celestial body
+     * @param size the size (diameter) of the celestial body
+     * @param velX the velocity in the X direction
+     * @param velY the velocity in the Y direction
+     */
     public Celestial(int startingPosX,int startingPosY, int size, int velX, int velY){
         //initializing innitial positions
         this.startPosX = startingPosX;
@@ -24,12 +32,22 @@ public class Celestial{
         this.velY = velY;
     }
 
-    //move method to update location of CB
+    /**
+     * Updates the current position of the celestial body by applying its velocity.
+     * The X and Y coordinates are incremented by their respective velocities.
+     */
     public void move(){
         this.currX += + velX;
         this.currY += velY;
     }
 
+     /**
+     * Creates and returns a list of the specified type.
+     *
+     * @param listType the type of list to create ("arraylist", "double", "single", or "dummyhead")
+     * @return a new list instance of the specified type
+     * @throws IllegalArgumentException if the listType is not one of the supported types
+     */
     public static <T> List<T> makeList(String listType){
 
         if(listType.equals("arraylist")){
