@@ -2,21 +2,31 @@ public class DoublyLinkedList<T> implements List<T> {
     Node head;
     int size;
     
+    /**
+     * Constructs an empty DoublyLinkedList.
+     */
     public DoublyLinkedList(){
         head = null;
         size = 0;
     }
     
+    /**
+     * Inserts the specified element at the specified position in this list.
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right. 
+     * Updates both forward and backward links.
+     *
+     * @param index the index at which the specified element is to be inserted
+     * @param element the element to be inserted
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size)
+     */
     @Override
     public void add (int index, T element){
-          //checking bounds:
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
-        //making node from element
         Node n = new Node(element);
 
-        //if index is head-> place in head:
         if(index == 0){
             n.next = head;
             head = n;
@@ -24,31 +34,33 @@ public class DoublyLinkedList<T> implements List<T> {
         }
         else{
             Node curr = head;
-            //find next spot
             for(int i = 0; i < index - 1; i++){
                 curr = curr.next;
             }
-            //should be in position by now -> place in spot
             n.prev = curr;
             n.next = curr.next;
             curr.next = n;
             n.next.prev = n;
         }
-        //increment size
         size++; 
     }
 
+    /**
+     * Adds the specified element to the end of this list.
+     * Updates both forward and backward links.
+     *
+     * @param element the element to be appended to this list
+     * @return true 
+     */
     @Override
     public boolean add (T element){
          Node n = new Node(element);
 
         if(head == null){
-            //if list is empty place at head
             head = n;
             n.prev = null;
         }else{
             Node curr = head;
-            //traverse to the end of list
             while(curr.next != null){
                 curr = curr.next;
             }
@@ -59,10 +71,16 @@ public class DoublyLinkedList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Returns the element at the specified position in this list.
+     *
+     * @param index the index of the element to return
+     * @return the element at the specified position in this list
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     */
     @Override
     public T get (int index){
           if(index < 0 || index > size){
-            //index Out Of Bounds -> element does not exists there
             throw new IndexOutOfBoundsException();
         }
         Node<T> curr = head;
@@ -72,14 +90,21 @@ public class DoublyLinkedList<T> implements List<T> {
         return curr.data;
     }
 
+    /**
+     * Removes the element at the specified position in this list.
+     * Shifts any subsequent elements to the left.
+     * Updates both forward and backward links.
+     *
+     * @param index the index of the element to be removed
+     * @return the element that was removed from the list
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
     @Override
     public T remove (int index){
-         //check bounds:
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         }
         Node<T> removed;
-        //if trying to remove head:
         if(index == 0){
             removed = head;
             head = head.next;
@@ -101,6 +126,11 @@ public class DoublyLinkedList<T> implements List<T> {
         return removed.data;
     }
 
+    /**
+     * Returns the number of elements in this list.
+     *
+     * @return the number of elements in this list
+     */
     @Override
     public int size (){
         return size;
