@@ -2,49 +2,58 @@ public class DummyHeadLinkedList<T> implements List<T>{
     Node<T> dummy = new Node(null);
     int size;
 
+    /**
+    * Constructs an empty DummyHeadLinkedList with a dummy head node.
+    */
     public DummyHeadLinkedList(){
         dummy.next = null;
         size = 0;
     }
 
+    /**
+    * Inserts the specified element at the specified position in this list.
+    * Shifts the element currently at that position 
+    *
+    * @param index the index at which the specified element is to be inserted
+    * @param element the element to be inserted
+    * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size)
+    */
     @Override
     public void add (int index, T element){
-        //checking bounds:
         if(index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
-        //making node from element
         Node<T> n = new Node(element);
 
-        //if index is at the very front -> update dummy.next:
         if(index == 0){
             n.next = dummy.next;
             dummy.next = n;
         }
         else{
             Node curr = dummy.next;
-            //find next spot
             for(int i = 0; i < index - 1; i++){
                 curr = curr.next;
             }
-            //should be in position by now -> place in spot
             n.next = curr.next;
             curr.next = n;
         }
-        //increment size
         size++; 
     }
 
+    /**
+    * Adds the specified element to the end of this list.
+    *
+    * @param element the element to be appended to this list
+    * @return true when successfully added 
+    */
     @Override
     public boolean add (T element){
         Node n = new Node(element);
 
         if(dummy.next == null){
-            //if list is empty place at head
             dummy.next = n;
         }else{
             Node curr = dummy.next;
-            //traverse to the end of list
             while(curr.next != null){
                 curr = curr.next;
             }
@@ -54,6 +63,13 @@ public class DummyHeadLinkedList<T> implements List<T>{
         return true;
     }
     
+    /**
+    * Returns the element at the specified position in this list.
+    *
+    * @param index the index of the element to return
+    * @return the element at the specified position in this list
+    * @throws IndexOutOfBoundsException if the index is out of range 
+    */
     @Override
     public T get (int index){
         if(index < 0 || index >= size){
@@ -67,6 +83,14 @@ public class DummyHeadLinkedList<T> implements List<T>{
         return curr.data;
     }
 
+    /**
+     * Removes the element at the specified position in this list.
+     * Shifts any elements on the right of the deleted to the left 
+     *
+     * @param index the index of the element to be removed
+     * @return the element that was removed from the list
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     */
     @Override
     public T remove (int index){
         //check bounds:
@@ -91,6 +115,11 @@ public class DummyHeadLinkedList<T> implements List<T>{
         return removed.data;
     }
 
+    /**
+     * Returns the number of elements in this list.
+     *
+     * @return the number of elements in this list
+     */
     @Override
     public int size (){
         return size;
